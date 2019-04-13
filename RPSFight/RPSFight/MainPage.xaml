@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:RPSFight"
+             x:Class="RPSFight.MainPage">
+
+    <Grid>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+        </Grid.ColumnDefinitions>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="9*"/>
+            <RowDefinition Height="4*"/>
+
+        </Grid.RowDefinitions>
+
+        <StackLayout>
+            <Label Text="Roshambo Name:" Grid.Column="0" Grid.Row="0"></Label>
+            <Entry Text="{Binding Path = testStringFunction}" Grid.Column="0" Grid.Row="0"></Entry>
+            <Button Text="Add Roshambo" Grid.Column="0" Grid.Row="0"></Button>
+            <Label Text="{Binding testStringFunction}" Grid.Column="0" Grid.Row="0"></Label>
+        </StackLayout>
+
+        
+
+    </Grid>
+
+</ContentPage>
