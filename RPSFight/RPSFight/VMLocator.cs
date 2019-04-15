@@ -1,7 +1,8 @@
-﻿using BackendLogic;
+﻿using RPSBackendLogic;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using RPSFight.ViewModels;
 
 namespace RPSFight
 {
@@ -9,9 +10,9 @@ namespace RPSFight
     {
         public VMLocator()
         {
-            Main = new MainViewModel();
+            //Main = new MainViewModel();
         }
 
-        public MainViewModel Main { get; }
+        //public MainViewModel Main { get; }
     }
 }

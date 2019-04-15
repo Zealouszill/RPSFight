@@ -3,14 +3,8 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:RPSFight"
              xmlns:local1="clr-namespace:BackendLogic"
-             x:Class="RPSFight.MainPage"
-             BindingContext="{Binding Main, Source={StaticResource Locator}}">
+             x:Class="RPSFight.MainPage">
 
-    <ContentPage.Resources>
-        <ResourceDictionary>
-            <local1:MainViewModel xmlns:vm="clr-namespace:RPSFight.VMLocator" x:Key="Locator" />
-        </ResourceDictionary>
-    </ContentPage.Resources>
 
     <Grid>
 

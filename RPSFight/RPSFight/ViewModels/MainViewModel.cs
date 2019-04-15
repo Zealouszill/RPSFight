@@ -20,8 +20,8 @@ namespace RPSFight.ViewModels
 
         public MainViewModel(RPSDataStorage.Data.DataStoreRepo context)
         {
-            string testString = "test";
-            testStringFunction = testString;
+            string testingString = "test";
+            TestStringFunction = testingString;
         }
 
         private string testString;
