@@ -20,22 +20,25 @@ namespace RPSDataStorage
 
         public void Add(Roshamo c)
         {
-            throw new NotImplementedException();
+            context.Roshamos.Add(c);
+            context.SaveChangesAsync();
         }
 
         public IEnumerable<Roshamo> GetAllRoshamo()
         {
-            throw new NotImplementedException();
+            return context.Roshamos;
         }
 
         public void Remove(Roshamo c)
         {
-            throw new NotImplementedException();
+            context.Roshamos.Remove(c);
+            context.SaveChangesAsync();
         }
 
         public void Update(Roshamo c)
         {
-            throw new NotImplementedException();
+            context.Roshamos.Update(c);
+            context.SaveChangesAsync();
         }
     }
 
@@ -65,6 +68,6 @@ namespace RPSDataStorage
                 .HasKey(c => c.Id);
         }
 
-        public DbSet<Roshamo> Countries { get; set; }
+        public DbSet<Roshamo> Roshamos { get; set; }
     }
 }

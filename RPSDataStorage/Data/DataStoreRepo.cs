@@ -19,7 +19,10 @@ namespace RPSDataStorage.Data
 
         public void Add(Roshamo c)
         {
-            throw new NotImplementedException();
+            var rosh = new RPSDataStorage.Models.Roshamo();
+            rosh.Country = c.Name.Value;
+
+            DataStore.Add(rosh);
         }
 
         public void Update(Roshamo c)
