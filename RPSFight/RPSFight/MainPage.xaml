@@ -20,9 +20,9 @@
 
         <StackLayout>
             <Label Text="Roshambo Name:" Grid.Column="0" Grid.Row="0"></Label>
-            <Entry Text="{Binding Path = testStringFunction}" Grid.Column="0" Grid.Row="0"></Entry>
+            <Entry Text="{Binding TestStringFunction}" Grid.Column="0" Grid.Row="0"></Entry>
             <Button Text="Add Roshambo" Grid.Column="0" Grid.Row="0"></Button>
-            <Label Text="{Binding testStringFunction}" Grid.Column="0" Grid.Row="0"></Label>
+            <Label Text="{Binding TestStringFunction}" Grid.Column="0" Grid.Row="0"></Label>
         </StackLayout>
 
         
