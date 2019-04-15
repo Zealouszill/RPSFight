@@ -30,13 +30,13 @@
     <AppXManifest Include="C:\Users\Spencer\source\repos\RPSFight\RPSFight\RPSFight.UWP\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2019-04-15T16:17:24.497</Modified>
+      <Modified>2019-04-15T16:29:07.134</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Spencer\source\repos\RPSFight\RPSFight\RPSFight.UWP\bin\x86\Debug\RPSFight.UWP.exe">
       <PackagePath>entrypoint\RPSFight.UWP.exe</PackagePath>
-      <Modified>2019-04-15T16:17:23.954</Modified>
+      <Modified>2019-04-15T16:29:06.611</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Spencer\.nuget\packages\microsoft.data.sqlite.core\2.2.4\lib\netstandard2.0\Microsoft.Data.Sqlite.dll">
       <PackagePath>Microsoft.Data.Sqlite.dll</PackagePath>
@@ -824,7 +824,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Spencer\source\repos\RPSFight\RPSFight\RPSFight\bin\Debug\netstandard2.0\RPSFight.dll">
       <PackagePath>RPSFight.dll</PackagePath>
-      <Modified>2019-04-15T16:17:18.917</Modified>
+      <Modified>2019-04-15T16:29:01.474</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Spencer\source\repos\RPSFight\RPSFight\RPSFight\bin\Debug\netstandard2.0\RPSDataStorage.dll">
       <PackagePath>RPSDataStorage.dll</PackagePath>
@@ -983,11 +983,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Spencer\source\repos\RPSFight\RPSFight\RPSFight.UWP\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2019-04-15T16:17:23.797</Modified>
+      <Modified>2019-04-15T16:29:06.441</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Spencer\source\repos\RPSFight\RPSFight\RPSFight.UWP\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2019-04-15T16:17:23.798</Modified>
+      <Modified>2019-04-15T16:29:06.441</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.17763.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -1003,7 +1003,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Spencer\source\repos\RPSFight\RPSFight\RPSFight.UWP\bin\x86\Debug\Core\RPSFight.UWP.exe">
       <PackagePath>RPSFight.UWP.exe</PackagePath>
-      <Modified>2019-04-15T16:17:24.493</Modified>
+      <Modified>2019-04-15T16:29:07.129</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

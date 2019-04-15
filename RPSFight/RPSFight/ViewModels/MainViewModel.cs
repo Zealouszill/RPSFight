@@ -12,6 +12,8 @@ namespace RPSFight.ViewModels
     public class MainViewModel : INotifyPropertyChanged
     {
         public ICommand AddRoshambo;
+        public ICommand startBattle;
+        public ICommand resultsCommand;
 
         private readonly IDataStoreRepo dataStore;
         IDataStoreRepo DataStore => dataStore;
@@ -30,6 +32,13 @@ namespace RPSFight.ViewModels
             get { return testString; }
             set { SetField(ref testString, value); }
         }
+
+        public ICommand StartBattle => startBattle ?? (resultsCommand = new SimpleCommand(
+            () =>
+            {
+                Console.WriteLine("We started an attack");
+            }
+            ));
 
         #region INotifyPropertyChanged Implementation
         public event PropertyChangedEventHandler PropertyChanged;
