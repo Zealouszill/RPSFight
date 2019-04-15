@@ -33,17 +33,29 @@
         <StackLayout Grid.Column="1" Grid.Row="0" Margin="5, 5, 5, 5">
             <Label Text="Enemy Roshambo"></Label>
             <Label Text="Rocks"></Label>
-            <Label Text="{Binding PlayerRocks}"></Label>
+            <Label Text="{Binding EnemyRocks}"></Label>
             <Label Text="Papers"></Label>
-            <Label Text="{Binding PlayerPapers}"></Label>
+            <Label Text="{Binding EnemyPapers}"></Label>
             <Label Text="Scissors"></Label>
-            <Label Text="{Binding PlayerScissors}"></Label>
+            <Label Text="{Binding EnemyScissors}"></Label>
         </StackLayout>
 
         <StackLayout Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="1" Margin="5, 5, 5, 5">
-            <Button Text="Battle!" IsEnabled="True" Command="{Binding StartBattle}"></Button>
+            <Button Text="Battle!" WidthRequest="100" HorizontalOptions="Start"  IsEnabled="True" Command="{Binding StartBattle}"></Button>
+            <StackLayout Orientation="Horizontal">
+                <Label Text="The winner is:"></Label>
+                <Label Text="{Binding Winner}"></Label>
+            </StackLayout>
+            
+            
         </StackLayout>
-        
+
+        <StackLayout Grid.Column="2" Grid.Row="1" Margin="5, 5, 5, 5">
+            <ListView>
+                
+            </ListView>
+        </StackLayout>
+
         <StackLayout Grid.Column="2" Grid.Row="0" Margin="5, 5, 5, 5">
             <ListView>
                 
