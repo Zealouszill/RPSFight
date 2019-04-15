@@ -1,6 +1,5 @@
 ﻿using RPSBackendLogic.Data;
 using RPSBackendLogic.Entities;
-using RPSBackendLogic.DomainPrimitives;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -13,6 +12,8 @@ namespace RPSFight.ViewModels
     public class MainViewModel : INotifyPropertyChanged
     {
         public ICommand AddRoshambo;
+        public ICommand startBattle;
+        public ICommand resultsCommand;
 
         private readonly IDataStoreRepo dataStore;
         IDataStoreRepo DataStore => dataStore;
@@ -21,10 +22,13 @@ namespace RPSFight.ViewModels
 
         public MainViewModel(RPSDataStorage.Data.DataStoreRepo context)
         {
+            string testingString = "test";
+            TestStringFunction = testingString;
+
             dataStore = context;
             Roshamos = new ObservableCollection<Roshamo>();
             //Roshamos = DataStore.GetAllRoshamos();
-            Roshamos.Add(new Roshamo("Baracuda", new Rock(), new Paper(), new Scissors()));
+            Roshamos.Add(new Roshamo());
         }
 
         private string testString;
@@ -33,6 +37,15 @@ namespace RPSFight.ViewModels
             get { return testString; }
             set { SetField(ref testString, value); }
         }
+
+
+        public ICommand StartBattle => startBattle ?? (resultsCommand = new SimpleCommand(
+            () =>
+            {
+
+                Console.WriteLine("We started an attack");
+            }
+            ));
 
         #region INotifyPropertyChanged Implementation
         public event PropertyChangedEventHandler PropertyChanged;
