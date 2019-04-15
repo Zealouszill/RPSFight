@@ -1,4 +1,5 @@
 ﻿using RPSBackendLogic.Data;
+using RPSBackendLogic.DomainPrimitives;
 using RPSBackendLogic.Entities;
 using System;
 using System.Collections.Generic;
@@ -28,7 +29,7 @@ namespace RPSFight.ViewModels
             dataStore = context;
             Roshamos = new ObservableCollection<Roshamo>();
             //Roshamos = DataStore.GetAllRoshamos();
-            Roshamos.Add(new Roshamo());
+            Roshamos.Add(new Roshamo("Baracuda", new Rock(), new Paper(), new Scissors()));
         }
 
         private string testString;
