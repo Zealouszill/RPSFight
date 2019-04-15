@@ -33,9 +33,11 @@ namespace RPSFight.ViewModels
             set { SetField(ref testString, value); }
         }
 
+
         public ICommand StartBattle => startBattle ?? (resultsCommand = new SimpleCommand(
             () =>
             {
+
                 Console.WriteLine("We started an attack");
             }
             ));
