@@ -24,6 +24,11 @@ namespace RPSFight.ViewModels
         {
             string testingString = "test";
             TestStringFunction = testingString;
+
+            dataStore = context;
+            Roshamos = new ObservableCollection<Roshamo>();
+            //Roshamos = DataStore.GetAllRoshamos();
+            Roshamos.Add(new Roshamo());
         }
 
         private string testString;
