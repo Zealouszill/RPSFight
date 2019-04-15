@@ -20,10 +20,8 @@ namespace RPSFight.ViewModels
 
         public MainViewModel(RPSDataStorage.Data.DataStoreRepo context)
         {
-            dataStore = context;
-            Roshamos = new ObservableCollection<Roshamo>();
-            //Roshamos = DataStore.GetAllRoshamos();
-            Roshamos.Add(new Roshamo());
+            string testString = "test";
+            testStringFunction = testString;
         }
 
         private string testString;
