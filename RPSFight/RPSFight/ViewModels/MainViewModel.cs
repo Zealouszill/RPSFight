@@ -29,7 +29,9 @@ namespace RPSFight.ViewModels
             dataStore = context;
             Roshamos = new ObservableCollection<Roshamo>();
             //Roshamos = DataStore.GetAllRoshamos();
-            Roshamos.Add(new Roshamo("Baracuda", new Rock(), new Paper(), new Scissors()));
+            Roshamos.Add(new Roshamo("Baracuda", new Rock(5), new Paper(4), new Scissors(1)));
+            Roshamos.Add(new Roshamo("Carmichael", new Rock(2), new Paper(7), new Scissors(3)));
+            Roshamos.Add(new Roshamo("Shcali", new Rock(22), new Paper(13), new Scissors(17)));
         }
 
         private string testString;
