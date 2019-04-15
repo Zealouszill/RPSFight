@@ -30,51 +30,37 @@ namespace RPSFight.ViewModels
             Roshamos = new ObservableCollection<Roshamo>();
             //Roshamos = DataStore.GetAllRoshamos();
 
-            Roshamos.Add(new Roshamo("Baracuda", new Rock(5), new Paper(4), new Scissors(1)));
-            Roshamos.Add(new Roshamo("Carmichael", new Rock(2), new Paper(7), new Scissors(3)));
-            Roshamos.Add(new Roshamo("Shcali", new Rock(22), new Paper(13), new Scissors(17)));
+            Roshamos.Add(RandomRoshambo("Baracuda"));
+            Roshamos.Add(RandomRoshambo("Carmichael"));
+            Roshamos.Add(RandomRoshambo("Shcali"));
         }
 
-        private string PlayerRocks;
-        public string PlayerRocksFunction
+        private int PlayerRocks;
+        public int PlayerRocksFunction
         {
             get { return PlayerRocks; }
             set { SetField(ref PlayerRocks, value); }
         }
 
-        private string PlayerPapers;
-        public string PlayerPapersFunction
+        private int PlayerPapers;
+        public int PlayerPapersFunction
         {
             get { return PlayerPapers; }
             set { SetField(ref PlayerPapers, value); }
         }
 
-        private string PlayerScissors;
-        public string PlayerScissorsFunction
+        private int PlayerScissors;
+        public int PlayerScissorsFunction
         {
             get { return PlayerScissors; }
             set { SetField(ref PlayerScissors, value); }
         }
 
-        private string EnemyRocks;
-        public string EnemyRocksFunction
+        private Roshamo enemyRoshambo;
+        public Roshamo EnemyRoshamboFunction
         {
-            get { return EnemyRocks; }
-            set { SetField(ref EnemyRocks, value); }
-        }
-
-        private string EnemyPapers;
-        public string EnemyPapersFunction
-        {
-            get { return EnemyPapers; }
-            set { SetField(ref EnemyPapers, value); }
-        }
-
-        private string EnemyScissors;
-        public string EnemyScissorsFunction
-        {
-            get { return EnemyScissors; }
-            set { SetField(ref EnemyScissors, value); }
+            get { return enemyRoshambo; }
+            set { SetField(ref enemyRoshambo, value); }
         }
 
         private string Winner;
@@ -87,19 +73,32 @@ namespace RPSFight.ViewModels
         public ICommand StartBattle => startBattle ?? (resultsCommand = new SimpleCommand(
             () =>
             {
+                
+                if (PlayerPapersFunction - EnemyRoshamboFunction.Paper.Quantity > 0)
+                {
 
+                }
                 Console.WriteLine("We started an attack");
             }
             ));
 
-        //public Roshamo RandomRoshambo()
-        //{
-        //    Roshamo tempRoshambo = new Roshamo();
+        public Roshamo RandomRoshambo(string nm)
+        {
 
+            Random rnd = new Random();
 
+            int limit = 30;
 
-        //    return tempRoshambo;
-        //}
+            int rocks = rnd.Next(1, limit);
+            limit = Math.Abs(rocks - limit);
+            int papers = rnd.Next(1, limit);
+            limit = Math.Abs(papers - limit);
+            int scissors = rnd.Next(1, limit);
+
+            Roshamo tempRoshambo = new Roshamo(nm, new Rock(rocks), new Paper(papers), new Scissors(scissors));
+
+            return tempRoshambo;
+        }
 
 
         #region INotifyPropertyChanged Implementation
