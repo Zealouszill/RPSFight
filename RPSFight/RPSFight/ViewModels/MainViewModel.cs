@@ -16,6 +16,8 @@ namespace RPSFight.ViewModels
         public ICommand startBattle;
         public ICommand resultsCommand;
 
+        Random rnd;
+
         private readonly IDataStoreRepo dataStore;
         IDataStoreRepo DataStore => dataStore;
 
@@ -23,12 +25,11 @@ namespace RPSFight.ViewModels
 
         public MainViewModel(RPSDataStorage.Data.DataStoreRepo context)
         {
-            string testingString = "test";
-            PlayerRocksFunction = testingString;
-
             dataStore = context;
             Roshamos = new ObservableCollection<Roshamo>();
             //Roshamos = DataStore.GetAllRoshamos();
+
+            rnd = new Random();
 
             Roshamos.Add(RandomRoshambo("Baracuda"));
             Roshamos.Add(RandomRoshambo("Carmichael"));
@@ -73,19 +74,21 @@ namespace RPSFight.ViewModels
         public ICommand StartBattle => startBattle ?? (resultsCommand = new SimpleCommand(
             () =>
             {
-                
+                double var1;
+                do
+                {
+                    var1 = rnd.NextDouble();
+                } while (var1 <= .2 && var1 >= .4);
+
                 if (PlayerPapersFunction - EnemyRoshamboFunction.Paper.Quantity > 0)
                 {
-
+                    
                 }
-                Console.WriteLine("We started an attack");
             }
             ));
 
         public Roshamo RandomRoshambo(string nm)
         {
-
-            Random rnd = new Random();
 
             int limit = 30;
 
