@@ -1,1 +1,1 @@
-C:\Users\Spencer\source\repos\RPSFight\RPSFight\RPSFight.UWP\RPSFight.UWP.csproj;x86
+C:\Users\jacob.ashcraft\source\repos\RPSFight\RPSFight\RPSFight.UWP\RPSFight.UWP.csproj;x86

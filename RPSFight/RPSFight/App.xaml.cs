@@ -1,4 +1,7 @@
-﻿using System;
+﻿using RPSDataStorage.Data;
+using RPSFight.ViewModels;
+using System;
+using System.IO;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
 
@@ -7,9 +10,33 @@ namespace RPSFight
 {
     public partial class App : Application
     {
+        public static MainViewModel RoshamoVM { get; private set; }
         public App()
         {
             InitializeComponent();
+
+            // Android
+            //var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "data.db");
+            string dbPath = null;
+            string dbName = "Roshamo.db";
+            switch (Device.RuntimePlatform)
+            {
+                case Device.Android:
+                    dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), dbName);
+                    break;
+                case Device.iOS:
+                    dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "..", "Library", dbName);
+                    SQLitePCL.Batteries_V2.Init();
+                    break;
+                default:
+                    dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData), dbName);
+                    break;
+            }
+            //optionbuilder.UseSqlite($@"Data Source={dbPath}");
+            var dataStore = new DataStoreRepo(dbPath);
+
+            //// Instantiate the view model
+            RoshamoVM = new MainViewModel(dataStore);
 
             MainPage = new MainPage();
         }

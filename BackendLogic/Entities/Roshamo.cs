@@ -4,7 +4,7 @@ using System.Text;
 
 namespace RPSBackendLogic.Entities
 {
-    class Roshamo
+    public class Roshamo
     {
     }
 }
