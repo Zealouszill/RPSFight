@@ -30,13 +30,13 @@
     <AppXManifest Include="C:\Users\Spencer\source\repos\RPSFight\RPSFight\RPSFight.UWP\bin\x86\Debug\Core\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2019-04-15T15:00:36.965</Modified>
+      <Modified>2019-04-15T16:01:25.250</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\Spencer\source\repos\RPSFight\RPSFight\RPSFight.UWP\bin\x86\Debug\RPSFight.UWP.exe">
       <PackagePath>entrypoint\RPSFight.UWP.exe</PackagePath>
-      <Modified>2019-04-15T15:00:35.863</Modified>
+      <Modified>2019-04-15T16:01:24.747</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Spencer\.nuget\packages\runtime.win10-x86.microsoft.netcore.universalwindowsplatform\6.1.5\runtimes\win10-x86\nativeassets\uap10.0.15138\clrcompression.dll">
       <PackagePath>clrcompression.dll</PackagePath>
@@ -712,7 +712,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Spencer\source\repos\RPSFight\RPSFight\RPSFight\bin\Debug\netstandard2.0\RPSFight.dll">
       <PackagePath>RPSFight.dll</PackagePath>
-      <Modified>2019-04-15T15:00:30.503</Modified>
+      <Modified>2019-04-15T16:01:20.491</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\bin\10.0.17763.0\XamlCompiler\Microsoft.UI.Xaml.Markup.winmd">
       <PackagePath>Microsoft.UI.Xaml.Markup.winmd</PackagePath>
@@ -863,11 +863,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Spencer\source\repos\RPSFight\RPSFight\RPSFight.UWP\bin\x86\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2019-04-15T15:00:35.692</Modified>
+      <Modified>2019-04-15T16:01:24.623</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Spencer\source\repos\RPSFight\RPSFight\RPSFight.UWP\bin\x86\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2019-04-15T15:00:35.693</Modified>
+      <Modified>2019-04-15T16:01:24.623</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Program Files %28x86%29\Windows Kits\10\UnionMetadata\10.0.17763.0\Windows.winmd">
       <PackagePath>WinMetadata\Windows.winmd</PackagePath>
@@ -879,11 +879,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Spencer\source\repos\RPSFight\RPSFight\RPSFight.UWP\bin\x86\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2019-04-13T21:37:36.005</Modified>
+      <Modified>2019-04-15T15:28:32.826</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\Spencer\source\repos\RPSFight\RPSFight\RPSFight.UWP\bin\x86\Debug\Core\RPSFight.UWP.exe">
       <PackagePath>RPSFight.UWP.exe</PackagePath>
-      <Modified>2019-04-15T15:00:36.960</Modified>
+      <Modified>2019-04-15T16:01:25.245</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

@@ -2,12 +2,20 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:RPSFight"
-             
-             x:Class="RPSFight.MainPage">
+             xmlns:local1="clr-namespace:BackendLogic"
+             x:Class="RPSFight.MainPage"
+             BindingContext="{Binding Main, Source={StaticResource Locator}}">
+
+    <ContentPage.Resources>
+        <ResourceDictionary>
+            <local1:MainViewModel xmlns:vm="clr-namespace:RPSFight.VMLocator" x:Key="Locator" />
+        </ResourceDictionary>
+    </ContentPage.Resources>
 
     <Grid>
 
         <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
             <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
@@ -18,14 +26,38 @@
 
         </Grid.RowDefinitions>
 
-        <StackLayout>
-            <Label Text="Roshambo Name:" Grid.Column="0" Grid.Row="0"></Label>
-            <Entry Text="{Binding Path = testStringFunction}" Grid.Column="0" Grid.Row="0"></Entry>
-            <Button Text="Add Roshambo" Grid.Column="0" Grid.Row="0"></Button>
-            <Label Text="{Binding testStringFunction}" Grid.Column="0" Grid.Row="0"></Label>
+        <StackLayout Grid.Column="0" Grid.Row="0" Margin="5, 5, 5, 5">
+            <Label Text="Your Roshambo"></Label>
+            <Label Text="Rocks"></Label>
+            <Label Text="{Binding PlayerRocks}"></Label>
+            <Label Text="Papers"></Label>
+            <Label Text="{Binding PlayerPapers}"></Label>
+            <Label Text="Scissors"></Label>
+            <Label Text="{Binding PlayerScissors}"></Label>
         </StackLayout>
 
-        
+        <StackLayout Grid.Column="1" Grid.Row="0" Margin="5, 5, 5, 5">
+            <Label Text="Enemy Roshambo"></Label>
+            <Label Text="Rocks"></Label>
+            <Label Text="{Binding PlayerRocks}"></Label>
+            <Label Text="Papers"></Label>
+            <Label Text="{Binding PlayerPapers}"></Label>
+            <Label Text="Scissors"></Label>
+            <Label Text="{Binding PlayerScissors}"></Label>
+        </StackLayout>
+
+        <StackLayout Grid.Column="2" Grid.Row="0" Margin="5, 5, 5, 5">
+            <ListView>
+                
+                <!--
+                <DataTemplate>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="{Binding RoshamboEnemyName}"
+                    </StackLayout>
+                </DataTemplate>
+                -->
+            </ListView>
+        </StackLayout>
 
     </Grid>
 

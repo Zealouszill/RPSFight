@@ -7,14 +7,14 @@ using System.Windows.Input;
 
 namespace BackendLogic
 {
-    public class MainViewModel
+    public class MainViewModel : INotifyPropertyChanged
     {
         public ICommand AddRoshambo;
 
         public MainViewModel()
         {
             string testString = "test";
-            testStringFunction = testString;
+            TestString = testString;
         }
 
         private string TestString;
