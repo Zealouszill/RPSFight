@@ -19,7 +19,7 @@ namespace RPSFight.ViewModels
         private readonly IDataStoreRepo dataStore;
         IDataStoreRepo DataStore => dataStore;
 
-        public ObservableCollection<Roshamo> Roshamos { get; set; }
+        public ObservableCollection<Roshambo> EnemyRoshambos { get; set; }
 
         public MainViewModel(RPSDataStorage.Data.DataStoreRepo context)
         {
@@ -27,12 +27,12 @@ namespace RPSFight.ViewModels
             PlayerRocksFunction = testingString;
 
             dataStore = context;
-            Roshamos = new ObservableCollection<Roshamo>();
-            //Roshamos = DataStore.GetAllRoshamos();
+            EnemyRoshambos = new ObservableCollection<Roshambo>();
+            //Roshambos = DataStore.GetAllRoshambos();
 
-            Roshamos.Add(new Roshamo("Baracuda", new Rock(5), new Paper(4), new Scissors(1)));
-            Roshamos.Add(new Roshamo("Carmichael", new Rock(2), new Paper(7), new Scissors(3)));
-            Roshamos.Add(new Roshamo("Shcali", new Rock(22), new Paper(13), new Scissors(17)));
+            EnemyRoshambos.Add(new Roshambo("Baracuda", new Rock(5), new Paper(4), new Scissors(1)));
+            EnemyRoshambos.Add(new Roshambo("Carmichael", new Rock(2), new Paper(7), new Scissors(3)));
+            EnemyRoshambos.Add(new Roshambo("Shcali", new Rock(22), new Paper(13), new Scissors(17)));
         }
 
         private string PlayerRocks;
@@ -92,9 +92,9 @@ namespace RPSFight.ViewModels
             }
             ));
 
-        //public Roshamo RandomRoshambo()
+        //public Roshambo RandomRoshambo()
         //{
-        //    Roshamo tempRoshambo = new Roshamo();
+        //    Roshambo tempRoshambo = new Roshambo();
 
 
 

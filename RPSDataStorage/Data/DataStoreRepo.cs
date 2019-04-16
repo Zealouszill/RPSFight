@@ -18,36 +18,36 @@ namespace RPSDataStorage.Data
             dataStore = new SqliteDataStore(dbPath);
         }
 
-        public void Add(Roshamo c)
+        public void Add(Roshambo c)
         {
             DataStore.Add(Convert(c));
         }
 
-        public void Update(Roshamo c)
+        public void Update(Roshambo c)
         {
             DataStore.Update(Convert(c));
         }
 
-        public void Remove(Roshamo c)
+        public void Remove(Roshambo c)
         {
             DataStore.Remove(Convert(c));
         }
 
-        public ObservableCollection<Roshamo> GetAllRoshamos()
+        public ObservableCollection<Roshambo> GetAllRoshambos()
         {
-            var list = new ObservableCollection<Roshamo>();
-            var temp = DataStore.GetAllRoshamo().GetEnumerator();
+            var list = new ObservableCollection<Roshambo>();
+            var temp = DataStore.GetAllRoshambo().GetEnumerator();
             while(temp.MoveNext())
             {
                 var cur = temp.Current;
-                list.Add(new Roshamo(cur.Id, cur.Country, new Rock(cur.RockQuantity), new Paper(cur.PaperQuantity), new Scissors(cur.ScissorQuantity)));
+                list.Add(new Roshambo(cur.Id, cur.Country, new Rock(cur.RockQuantity), new Paper(cur.PaperQuantity), new Scissors(cur.ScissorQuantity), cur.Enemy));
             }
             return list;
         }
 
-        private RPSDataStorage.Models.Roshamo Convert(Roshamo c)
+        private RPSDataStorage.Models.Roshambo Convert(Roshambo c)
         {
-            var rosh = new RPSDataStorage.Models.Roshamo();
+            var rosh = new RPSDataStorage.Models.Roshambo();
             if(c.Id != 0)
             {
                 rosh.Id = c.Id;

@@ -8,24 +8,16 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="1*"/>
-            <ColumnDefinition Width="2*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
+            <ColumnDefinition Width="1*"/>
         </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition Height="7*"/>
             <RowDefinition Height="5*"/>
         </Grid.RowDefinitions>
 
-        <StackLayout Grid.Column="0" Grid.Row="0" Margin="5, 5, 5, 5">
-            <Label Text="Your Roshambo"></Label>
-            <Label Text="Rocks"></Label>
-            <Label Text="{Binding PlayerRocks}"></Label>
-            <Label Text="Papers"></Label>
-            <Label Text="{Binding PlayerPapers}"></Label>
-            <Label Text="Scissors"></Label>
-            <Label Text="{Binding PlayerScissors}"></Label>
-        </StackLayout>
-
-        <Grid Grid.Column="1" Grid.Row="0" Margin="5,5,5,5">
+        <Grid Grid.Column="0" Grid.Row="0" Margin="5,5,10,5" Padding="2" BackgroundColor="LightBlue">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="1*"/>
             </Grid.ColumnDefinitions>
@@ -35,7 +27,7 @@
             </Grid.RowDefinitions>
             <Grid Margin="5,5,5,5" Grid.Row="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="3*"/>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
                     <ColumnDefinition Width="1*"/>
@@ -45,7 +37,7 @@
                 <Label Text="Paper" Grid.Column="2" />
                 <Label Text="Scissor" Grid.Column="3" />
             </Grid>
-            <ListView ItemsSource="{Binding Roshamos}"
+            <ListView ItemsSource="{Binding PlayerRoshambos}"
                           CachingStrategy="RecycleElement"
                           HasUnevenRows="true" Grid.Row="1">
                 <ListView.ItemTemplate>
@@ -53,7 +45,77 @@
                         <ViewCell>
                             <Grid>
                                 <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*"/>
                                     <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                    <ColumnDefinition Width="1*"/>
+                                </Grid.ColumnDefinitions>
+                                <Label Text="{Binding Name}" VerticalTextAlignment="Center" Grid.Column="0" />
+                                <Label Text="{Binding Rock.Quantity}" VerticalTextAlignment="Center" Grid.Column="1" />
+                                <Label Text="{Binding Paper.Quantity}" VerticalTextAlignment="Center" Grid.Column="2" />
+                                <Label Text="{Binding Scissors.Quantity}" VerticalTextAlignment="Center" Grid.Column="3" />
+                            </Grid>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </Grid>
+
+        <StackLayout Grid.Column="1" Grid.Row="0" Margin="5, 5, 5, 5">
+            <Label Text="Your Roshambo"></Label>
+            <Label Text="Name"></Label>
+            <Entry Text="{Binding PlayerName}"></Entry>
+            <Label Text="Rocks"></Label>
+            <Entry Text="{Binding PlayerRocks}"></Entry>
+            <Label Text="Papers"></Label>
+            <Entry Text="{Binding PlayerPapers}"></Entry>
+            <Label Text="Scissors"></Label>
+            <Entry Text="{Binding PlayerScissors}"></Entry>
+            <Button Text="Save Player" />
+        </StackLayout>
+
+        <StackLayout Grid.Column="2" Grid.Row="0" Margin="5, 5, 5, 5">
+            <Label Text="Enemy Roshambo"></Label>
+            <Label Text="Name"></Label>
+            <Entry Text="{Binding EnemyName}"></Entry>
+            <Label Text="Rocks"></Label>
+            <Entry Text="{Binding EnemyRocks}"></Entry>
+            <Label Text="Papers"></Label>
+            <Entry Text="{Binding EnemyPapers}"></Entry>
+            <Label Text="Scissors"></Label>
+            <Entry Text="{Binding EnemyScissors}"></Entry>
+            <Button Text="Save Enemy" />
+        </StackLayout>
+
+        <Grid Grid.Column="3" Grid.Row="0" Margin="5,5,5,10" Padding="2" BackgroundColor="Crimson">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="1*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="18*"/>
+            </Grid.RowDefinitions>
+            <Grid Margin="5,5,5,5" Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <Label Text="Name" Grid.Column="0" />
+                <Label Text="Rock" Grid.Column="1" />
+                <Label Text="Paper" Grid.Column="2" />
+                <Label Text="Scissor" Grid.Column="3" />
+            </Grid>
+            <ListView ItemsSource="{Binding EnemyRoshambos}"
+                          CachingStrategy="RecycleElement"
+                          HasUnevenRows="true" Grid.Row="1">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="3*"/>
                                     <ColumnDefinition Width="1*"/>
                                     <ColumnDefinition Width="1*"/>
                                     <ColumnDefinition Width="1*"/>
