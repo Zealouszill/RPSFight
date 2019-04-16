@@ -32,7 +32,7 @@ namespace RPSFight.ViewModels
 
             EnemyRoshambos.Add(new Roshambo("Baracuda", new Rock(5), new Paper(4), new Scissors(1)));
             EnemyRoshambos.Add(new Roshambo("Carmichael", new Rock(2), new Paper(7), new Scissors(3)));
-            EnemyRoshambos.Add(new Roshambo("Shcali", new Rock(22), new Paper(13), new Scissors(17)));
+            EnemyRoshambos.Add(new Roshambo("Shcali", new Rock(20), new Paper(13), new Scissors(17)));
         }
 
         private string PlayerRocks;

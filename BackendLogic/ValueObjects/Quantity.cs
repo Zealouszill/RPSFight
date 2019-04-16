@@ -10,9 +10,10 @@ namespace RPSBackendLogic.ValueObjects
 
         public Quantity(int v)
         {
-            if(v > 0 && v < 20)
+            if(v >= 0 && v <= 20)
                 Value = v;
-            throw new InvalidValueException("Quantity is invalid.");
+            else
+                throw new InvalidValueException("Quantity is invalid.");
         }
 
         public int Value { get; private set; }
