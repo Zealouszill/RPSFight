@@ -53,6 +53,10 @@ namespace RPSDataStorage.Data
                 rosh.Id = c.Id;
             }
             rosh.Country = c.Name.Value;
+            rosh.RockQuantity = c.Rock.Quantity.Value;
+            rosh.PaperQuantity = c.Paper.Quantity.Value;
+            rosh.ScissorQuantity = c.Scissors.Quantity.Value;
+            rosh.Enemy = c.Enemy;
             return rosh;
         }
     }

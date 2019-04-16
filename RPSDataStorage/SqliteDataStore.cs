@@ -31,7 +31,8 @@ namespace RPSDataStorage
 
         public void Remove(Roshambo c)
         {
-            context.Roshambos.Remove(c);
+            var value = context.Roshambos.Find(c.Id);
+            context.Roshambos.Remove(value);
             context.SaveChangesAsync();
         }
 
