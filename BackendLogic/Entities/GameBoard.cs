@@ -10,6 +10,7 @@ namespace RPSBackendLogic.Entities
 {
     public class GameBoard
     {
+        public ObservableCollection<Name> WinLog { get; set; }
         public Roshambo Player { get; set; }
         public Roshambo Enemy { get; set; }
         public Quantity GameLength { get; set; }
@@ -18,7 +19,6 @@ namespace RPSBackendLogic.Entities
         private int[] enemyQ;
         private int[] playerQ;
         private int count;
-        public ObservableCollection<Name> WinLog { get; set; }
 
         public GameBoard()
         {

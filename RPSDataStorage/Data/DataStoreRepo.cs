@@ -36,12 +36,8 @@ namespace RPSDataStorage.Data
         public ObservableCollection<Roshambo> GetAllRoshambos()
         {
             var list = new ObservableCollection<Roshambo>();
-            var temp = DataStore.GetAllRoshambo().GetEnumerator();
-            while(temp.MoveNext())
-            {
-                var cur = temp.Current;
+            foreach(var cur in DataStore.GetAllRoshambo())
                 list.Add(new Roshambo(cur.Id, cur.Country, new Rock(cur.RockQuantity), new Paper(cur.PaperQuantity), new Scissors(cur.ScissorQuantity), cur.Enemy));
-            }
             return list;
         }
 
@@ -49,9 +45,7 @@ namespace RPSDataStorage.Data
         {
             var rosh = new RPSDataStorage.Models.Roshambo();
             if(c.Id != 0)
-            {
                 rosh.Id = c.Id;
-            }
             rosh.Country = c.Name.Value;
             rosh.RockQuantity = c.Rock.Quantity.Value;
             rosh.PaperQuantity = c.Paper.Quantity.Value;
