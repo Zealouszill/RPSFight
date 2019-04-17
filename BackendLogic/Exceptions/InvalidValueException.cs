@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace RPSBackendLogic.Exceptions
 {
     [Serializable]
-    internal class InvalidValueException : Exception
+    public class InvalidValueException : Exception
     {
         public InvalidValueException()
         {

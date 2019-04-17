@@ -10,7 +10,9 @@ namespace RPSBackendLogic.Entities
 {
     public class GameBoard
     {
-        public ObservableCollection<Name> WinLog { get; set; }
+        private readonly Data.IDataStoreRepo dataStore;
+        private Data.IDataStoreRepo DataStore => dataStore;
+        public ObservableCollection<Sentence> WinLog { get; set; }
         public Roshambo Player { get; set; }
         public Roshambo Enemy { get; set; }
         public Quantity GameLength { get; set; }
@@ -20,11 +22,12 @@ namespace RPSBackendLogic.Entities
         private int[] playerQ;
         private int count;
 
-        public GameBoard()
+        public GameBoard(Data.IDataStoreRepo ds)
         {
             rnd= new Random();
             GameLength = 20;
-            WinLog = new ObservableCollection<Name>();
+            dataStore = ds;
+            WinLog = new ObservableCollection<Sentence>();
         }
 
         public Roshambo GameStart()
@@ -74,7 +77,10 @@ namespace RPSBackendLogic.Entities
                     }
                 }
             }
-            catch (InvalidStringLengthException e) { }
+            catch (InvalidStringLengthException e)
+            {
+                DataStore.Add(new Log("GameBoard log string length exception. Message: " + e.Message));
+            }
             int wincount = 0;
             for (int i = 0; i < PlayerWins.Length; i++)
             {

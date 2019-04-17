@@ -4,7 +4,7 @@ using System.Runtime.Serialization;
 namespace RPSBackendLogic.Exceptions
 {
     [Serializable]
-    internal class InvalidStringLengthException : Exception
+    public class InvalidStringLengthException : Exception
     {
         public InvalidStringLengthException()
         {
