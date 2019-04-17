@@ -18,26 +18,27 @@ namespace RPSDataStorage
             context = new DBContext(dbPath);
         }
 
-        public void Add(Roshamo c)
+        public void Add(Roshambo c)
         {
-            context.Roshamos.Add(c);
+            context.Roshambos.Add(c);
             context.SaveChangesAsync();
         }
 
-        public IEnumerable<Roshamo> GetAllRoshamo()
+        public IEnumerable<Roshambo> GetAllRoshambo()
         {
-            return context.Roshamos;
+            return context.Roshambos;
         }
 
-        public void Remove(Roshamo c)
+        public void Remove(Roshambo c)
         {
-            context.Roshamos.Remove(c);
+            var value = context.Roshambos.Find(c.Id);
+            context.Roshambos.Remove(value);
             context.SaveChangesAsync();
         }
 
-        public void Update(Roshamo c)
+        public void Update(Roshambo c)
         {
-            context.Roshamos.Update(c);
+            context.Roshambos.Update(c);
             context.SaveChangesAsync();
         }
     }
@@ -64,10 +65,10 @@ namespace RPSDataStorage
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Roshamo>()
+            modelBuilder.Entity<Roshambo>()
                 .HasKey(c => c.Id);
         }
 
-        public DbSet<Roshamo> Roshamos { get; set; }
+        public DbSet<Roshambo> Roshambos { get; set; }
     }
 }

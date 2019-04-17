@@ -6,8 +6,8 @@ using System.Text;
 
 namespace RPSBackendLogic.Data
 {
-    public interface IDataStoreRepo : IRepoService<Roshamo>
+    public interface IDataStoreRepo : IRepoService<Roshambo>
     {
-        ObservableCollection<Roshamo> GetAllRoshamos();
+        ObservableCollection<Roshambo> GetAllRoshambos();
     }
 }

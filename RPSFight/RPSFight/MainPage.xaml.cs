@@ -12,7 +12,7 @@ namespace RPSFight
         public MainPage()
         {
             InitializeComponent();
-            BindingContext = App.RoshamoVM;
+            BindingContext = App.RoshamboVM;
         }
     }
 }

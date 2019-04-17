@@ -6,8 +6,8 @@ using System.Text;
 
 namespace RPSDataStorage.Data
 {
-    public interface IDbRepo : IRepoService<Roshamo>
+    public interface IDbRepo : IRepoService<Roshambo>
     {
-        IEnumerable<Roshamo> GetAllRoshamo();
+        IEnumerable<Roshambo> GetAllRoshambo();
     }
 }

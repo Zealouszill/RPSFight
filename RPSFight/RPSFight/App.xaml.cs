@@ -10,7 +10,7 @@ namespace RPSFight
 {
     public partial class App : Application
     {
-        public static MainViewModel RoshamoVM { get; private set; }
+        public static MainViewModel RoshamboVM { get; private set; }
         public App()
         {
             InitializeComponent();
@@ -18,7 +18,7 @@ namespace RPSFight
             // Android
             //var dbPath = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.Personal), "data.db");
             string dbPath = null;
-            string dbName = "Roshamo.db";
+            string dbName = "Roshambo.db";
             switch (Device.RuntimePlatform)
             {
                 case Device.Android:
@@ -36,7 +36,7 @@ namespace RPSFight
             var dataStore = new DataStoreRepo(dbPath);
 
             //// Instantiate the view model
-            RoshamoVM = new MainViewModel(dataStore);
+            RoshamboVM = new MainViewModel(dataStore);
 
             MainPage = new MainPage();
         }

@@ -12,7 +12,7 @@ namespace RPSBackendLogic.ValueObjects
     {
         private static readonly int MINIMUM_LENGTH = 4;
         private static readonly int MAXIMUM_LENGTH = 80;
-        private static readonly string VALID_CHARACTERS = "^[^0-9][A-Za-z0-9_-]*$";
+        private static readonly string VALID_CHARACTERS = "^[^0-9][A-Za-z0-9 _-]*$";
         //private static readonly string VALID_CHARACTERS = ".*";
 
         public Name(string v)
