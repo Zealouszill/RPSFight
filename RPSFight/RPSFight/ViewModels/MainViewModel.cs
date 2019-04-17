@@ -6,8 +6,8 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Windows.Input;
 using Xamarin.Forms;
 
 namespace RPSFight.ViewModels
@@ -237,6 +237,17 @@ namespace RPSFight.ViewModels
                 }
             }
         }));
+
+        public void ErrorMessager(string windowBar, string messageBox, string buttonText)
+        {
+            
+            Xamarin.Forms.Page ourPage = App.Current.MainPage.Navigation.NavigationStack.LastOrDefault();
+            if (ourPage != null)
+            {
+                ourPage.DisplayAlert(windowBar, messageBox, buttonText);
+            }
+            
+        }
 
         #region INotifyPropertyChanged Implementation
         public event PropertyChangedEventHandler PropertyChanged;
