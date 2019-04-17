@@ -17,6 +17,7 @@ namespace RPSBackendLogic.Entities
         public Roshambo Enemy { get; set; }
         public Quantity GameLength { get; set; }
         private Random rnd;
+        public List<double> UserModifiers { get; set; }
         private bool[] PlayerWins { get; set; }
         private int[] enemyQ;
         private int[] playerQ;
@@ -28,6 +29,7 @@ namespace RPSBackendLogic.Entities
             GameLength = 20;
             dataStore = ds;
             WinLog = new ObservableCollection<Sentence>();
+            UserModifiers = new List<double>();
         }
 
         public Roshambo GameStart()

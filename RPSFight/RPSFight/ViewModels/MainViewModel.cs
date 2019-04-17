@@ -46,20 +46,16 @@ namespace RPSFight.ViewModels
         }
         private void GetPlayerRoshambos()
         {
-            var Roshambos = DataStore.GetAllRoshambos().GetEnumerator();
-            while (Roshambos.MoveNext())
+            foreach(var cur in DataStore.GetAllRoshambos())
             {
-                var cur = Roshambos.Current;
                 if (!cur.Enemy && !CheckId(cur.Id.Value, false))
                     PlayerRoshambos.Add(cur);
             }
         }
         private void GetEnemyRoshambos()
         {
-            var Roshambos = DataStore.GetAllRoshambos().GetEnumerator();
-            while (Roshambos.MoveNext())
+            foreach(var cur in DataStore.GetAllRoshambos())
             {
-                var cur = Roshambos.Current;
                 if (cur.Enemy && !CheckId(cur.Id.Value))
                     EnemyRoshambos.Add(cur);
             }
@@ -126,22 +122,29 @@ namespace RPSFight.ViewModels
         public int EnemyRocks
         {
             get { return enemyRocks; }
-            set { SetField(ref enemyRocks, value); }
+            set {
+                SetField(ref enemyRocks, value); }
         }
 
         private int enemyPapers;
         public int EnemyPapers
         {
             get { return enemyPapers; }
-            set { SetField(ref enemyPapers, value); }
+            set { SetField(ref enemyPapers,value); }
         }
 
         private int enemyScissors;
         public int EnemyScissors
         {
             get { return enemyScissors; }
-            set { SetField(ref enemyScissors, value); }
+            set { SetField(ref enemyScissors,value); }
         }
+
+/******************************************************
+ *                    Modifiers                       *
+ *****************************************************/
+
+        
 
         private Roshambo winner;
         public Roshambo Winner
@@ -149,12 +152,6 @@ namespace RPSFight.ViewModels
             get { return winner; }
             set { SetField(ref winner, value); }
         }
-
-        //private Command removePlayer;
-        //public Command RemovePlayerCmd => removePlayer ?? (removePlayer = new Command(() =>
-        //{
-
-        //}));
 
         private Command showLog;
         public Command ShowLogCmd => showLog ?? (showLog = new Command(() =>
@@ -180,14 +177,17 @@ namespace RPSFight.ViewModels
             catch (InvalidStringLengthException e)
             {
                 DataStore.Add(new Log("Invalid name-length when saving enemy player. Message: " + e.Message));
+                ErrorMessager("The length of the enemy name is too short or too long. Please pick a new name.");
             }
             catch (InvalidValueException e)
             {
                 DataStore.Add(new Log("Invalid value when saving enemy player. Message: " + e.Message));
+                ErrorMessager("You have placed an invalid value for the enemy player. Pick an appropriate value.");
             }
             catch (Exception e)
             {
                 DataStore.Add(new Log("System Exception. Message: " + e.Message));
+                ErrorMessager("Error: " + e.Message + " Please try again.");
             }
         }));
 
@@ -201,10 +201,12 @@ namespace RPSFight.ViewModels
                     DataStore.Add(new Log("User removed an enemy named: " + EnemyRoshambo.Name));
                     DataStore.Remove(EnemyRoshambo);
                     EnemyRoshambos.Remove(EnemyRoshambo);
+                    EnemyRoshambo = null;
                 }
             }catch(Exception e)
             {
                 DataStore.Add(new Log("System Exception when trying to remove enemy player. Message: " + e.Message));
+                ErrorMessager("Unable to remove enemy player.");
             }
         }));
 
@@ -216,6 +218,7 @@ namespace RPSFight.ViewModels
                 var newRo = new Roshambo(new Name(PlayerName), new Rock(PlayerRocks), new Paper(PlayerPapers), new Scissors(PlayerScissors), false);
                 DataStore.Add(newRo);
                 GetPlayerRoshambos();
+                //PlayerRoshambos.Add(newRo);
                 DataStore.Add(new Log("User saved a player named: " + PlayerName));
                 PlayerName = "";
                 PlayerRocks = PlayerPapers = PlayerScissors = 0;
@@ -223,14 +226,18 @@ namespace RPSFight.ViewModels
             catch (InvalidStringLengthException e)
             {
                 DataStore.Add(new Log("Invalid name-length when saving player. Message: " + e.Message));
+                ErrorMessager("The length of the player name is too short. Please pick a new name.");
             }
             catch (InvalidValueException e)
             {
                 DataStore.Add(new Log("Invalid value when saving player. Message: " + e.Message));
+                ErrorMessager("You have placed an invalid value for the player player. Pick an appropriate value.");
+
             }
             catch (Exception e)
             {
                 DataStore.Add(new Log("System Exception. Message: " + e.Message));
+                ErrorMessager("Error: " + e.Message + " Please try again.");
             }
         }));
 
@@ -244,39 +251,79 @@ namespace RPSFight.ViewModels
                     DataStore.Remove(PlayerRoshambo);
                     DataStore.Add(new Log("User removed a player named: " + PlayerRoshambo.Name));
                     PlayerRoshambos.Remove(PlayerRoshambo);
+                    PlayerRoshambo = null;
                 }
             }
             catch (Exception e)
             {
                 DataStore.Add(new Log("System Exception when trying to remove player. Message: " + e.Message));
+                ErrorMessager("Unable to remove player.");
+
             }
         }));
 
         private Command startGame;
         public Command StartGameCmd => startGame ?? (startGame = new Command(() =>
         {
-            if (PlayerRoshambo != null && EnemyRoshambo != null)
+            
+            try
             {
-                tehGameBoard.Player = PlayerRoshambo;
-                tehGameBoard.Enemy = EnemyRoshambo;
-                Winner = tehGameBoard.GameStart();
-                DataStore.Add(new Log("User started the game with player: " + PlayerRoshambo.Name.Value + " and enemy: " + EnemyRoshambo.Name.Value + ". Winner: " + Winner.Name.Value));
-                var temp = tehGameBoard.WinLog.GetEnumerator();
-                WinLog.Clear();
-                while (temp.MoveNext())
+                int playerQuantityTotal = PlayerRoshambo.Rock.Quantity + PlayerRoshambo.Paper.Quantity + PlayerRoshambo.Scissors.Quantity;
+                int enemyQuantityTotal = EnemyRoshambo.Rock.Quantity + EnemyRoshambo.Paper.Quantity + EnemyRoshambo.Scissors.Quantity;
+
+                if (enemyQuantityTotal <= 0)
+                    throw new InvalidOperationException("Please select an enemy with quantity that is more than 0.");
+
+                if (playerQuantityTotal <= 0)
+                    throw new InvalidOperationException("Please select a player with quantity that is more than 0.");
+                
+
+                if (PlayerRoshambo != null && EnemyRoshambo != null)
                 {
-                    WinLog.Add(temp.Current);
+                    tehGameBoard.Player = PlayerRoshambo;
+                    tehGameBoard.Enemy = EnemyRoshambo;
+                    //tehGameBoard.UserModifiers.Add();
+                    Winner = tehGameBoard.GameStart();
+                    DataStore.Add(new Log("User started the game with player: " + PlayerRoshambo.Name.Value + " and enemy: " + EnemyRoshambo.Name.Value + ". Winner: " + Winner.Name.Value));
+                    var temp = tehGameBoard.WinLog.GetEnumerator();
+                    WinLog.Clear();
+                    while (temp.MoveNext())
+                    {
+                        WinLog.Add(temp.Current);
+                    }
                 }
+
             }
+            catch (InvalidOperationException e)
+            {
+                ErrorMessager(e.Message);
+            }
+            catch (NullReferenceException)
+            {
+                ErrorMessager("Please select your combatants");
+            }
+
+
         }));
 
-        public void ErrorMessager(string windowBar, string messageBox, string buttonText)
+        //public void testIfString<T>(ref T var)
+        //{
+        //    string aString = "string";
+            
+
+        //    if (var.GetType() == aString.GetType())
+        //    {
+
+        //    }
+        //}
+
+        public void ErrorMessager(string messageBox)
         {
             
             Xamarin.Forms.Page ourPage = App.Current.MainPage.Navigation.NavigationStack.LastOrDefault();
             if (ourPage != null)
             {
-                ourPage.DisplayAlert(windowBar, messageBox, buttonText);
+                ourPage.DisplayAlert("Error", messageBox, "Ok");
             }
             
         }
