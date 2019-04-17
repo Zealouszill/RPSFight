@@ -5,17 +5,14 @@ using System.Text;
 
 namespace RPSBackendLogic.ValueObjects
 {
-    /// <summary>
-    /// Value Object
-    /// </summary>
-    public class Name
+    public class Sentence
     {
         private static readonly int MINIMUM_LENGTH = 4;
-        private static readonly int MAXIMUM_LENGTH = 40;
-        private static readonly string VALID_CHARACTERS = "^[^0-9][A-Za-z0-9_-]*$";
+        private static readonly int MAXIMUM_LENGTH = 255;
+        private static readonly string VALID_CHARACTERS = "^[^0-9][A-Za-z0-9 .:_-]*$";
         //private static readonly string VALID_CHARACTERS = ".*";
 
-        public Name(string v)
+        public Sentence(string v)
         {
             if (v != null)
             {
@@ -36,12 +33,12 @@ namespace RPSBackendLogic.ValueObjects
 
         public string Value { get; private set; }
 
-        public static implicit operator Name(string v)
+        public static implicit operator Sentence(string v)
         {
-            return new Name(v);
+            return new Sentence(v);
         }
 
-        public static implicit operator string(Name v)
+        public static implicit operator string(Sentence v)
         {
             return v.Value;
         }

@@ -1,6 +1,7 @@
 ﻿using RPSBackendLogic.Data;
 using RPSBackendLogic.DomainPrimitives;
 using RPSBackendLogic.Entities;
+using RPSBackendLogic.Exceptions;
 using RPSBackendLogic.ValueObjects;
 using System;
 using System.Collections.Generic;
@@ -25,15 +26,17 @@ namespace RPSFight.ViewModels
 
         public ObservableCollection<Roshambo> PlayerRoshambos { get; set; }
         public ObservableCollection<Roshambo> EnemyRoshambos { get; set; }
-        public ObservableCollection<Name> WinLog { get; set; }
+        public ObservableCollection<Log> Log { get; set; }
+        public ObservableCollection<Sentence> WinLog { get; private set; }
 
         public MainViewModel(RPSDataStorage.Data.DataStoreRepo context)
         {
             dataStore = context;
             PlayerRoshambos = new ObservableCollection<Roshambo>();
             EnemyRoshambos = new ObservableCollection<Roshambo>();
-            WinLog = new ObservableCollection<Name>();
-            tehGameBoard = new GameBoard();
+            WinLog = new ObservableCollection<Sentence>();
+            Log = new ObservableCollection<Log>();
+            tehGameBoard = new GameBoard(dataStore);
 
             EnemyRoshambos.Add(new Roshambo("Baracuda", new Rock(5), new Paper(4), new Scissors(1)));
             EnemyRoshambos.Add(new Roshambo("Carmichael", new Rock(2), new Paper(7), new Scissors(3)));
@@ -153,6 +156,14 @@ namespace RPSFight.ViewModels
 
         //}));
 
+        private Command showLog;
+        public Command ShowLogCmd => showLog ?? (showLog = new Command(() =>
+        {
+            Log.Clear();
+            foreach(var cur in DataStore.GetAllLogEntries())
+                Log.Add(cur);
+        }));
+
         private Command saveEnemy;
         public Command SaveEnemyCmd => saveEnemy ?? (saveEnemy = new Command(() =>
         {
@@ -162,12 +173,21 @@ namespace RPSFight.ViewModels
                 DataStore.Add(newRo);
                 GetEnemyRoshambos();
                 //EnemyRoshambos.Add(newRo);
+                DataStore.Add(new Log("User saved an enemy named: " + EnemyName));
                 EnemyName = "";
                 EnemyRocks = EnemyPapers = EnemyScissors = 0;
             }
+            catch (InvalidStringLengthException e)
+            {
+                DataStore.Add(new Log("Invalid name-length when saving enemy player. Message: " + e.Message));
+            }
+            catch (InvalidValueException e)
+            {
+                DataStore.Add(new Log("Invalid value when saving enemy player. Message: " + e.Message));
+            }
             catch (Exception e)
             {
-                Console.WriteLine("Values" + e.Message);
+                DataStore.Add(new Log("System Exception. Message: " + e.Message));
             }
         }));
 
@@ -178,12 +198,13 @@ namespace RPSFight.ViewModels
             {
                 if (EnemyRoshambo != null && EnemyRoshambo.Id != 0)
                 {
+                    DataStore.Add(new Log("User removed an enemy named: " + EnemyRoshambo.Name));
                     DataStore.Remove(EnemyRoshambo);
                     EnemyRoshambos.Remove(EnemyRoshambo);
                 }
             }catch(Exception e)
             {
-                Console.WriteLine("Removing enemy" + e.Message);
+                DataStore.Add(new Log("System Exception when trying to remove enemy player. Message: " + e.Message));
             }
         }));
 
@@ -195,12 +216,21 @@ namespace RPSFight.ViewModels
                 var newRo = new Roshambo(new Name(PlayerName), new Rock(PlayerRocks), new Paper(PlayerPapers), new Scissors(PlayerScissors), false);
                 DataStore.Add(newRo);
                 GetPlayerRoshambos();
-                //PlayerRoshambos.Add(newRo);
+                DataStore.Add(new Log("User saved a player named: " + PlayerName));
                 PlayerName = "";
                 PlayerRocks = PlayerPapers = PlayerScissors = 0;
-            } catch(Exception e)
+            }
+            catch (InvalidStringLengthException e)
             {
-                Console.WriteLine("Values" + e.Message);
+                DataStore.Add(new Log("Invalid name-length when saving player. Message: " + e.Message));
+            }
+            catch (InvalidValueException e)
+            {
+                DataStore.Add(new Log("Invalid value when saving player. Message: " + e.Message));
+            }
+            catch (Exception e)
+            {
+                DataStore.Add(new Log("System Exception. Message: " + e.Message));
             }
         }));
 
@@ -212,12 +242,13 @@ namespace RPSFight.ViewModels
                 if (PlayerRoshambo != null && PlayerRoshambo.Id != 0)
                 {
                     DataStore.Remove(PlayerRoshambo);
+                    DataStore.Add(new Log("User removed a player named: " + PlayerRoshambo.Name));
                     PlayerRoshambos.Remove(PlayerRoshambo);
                 }
             }
             catch (Exception e)
             {
-                Console.WriteLine("Removing enemy" + e.Message);
+                DataStore.Add(new Log("System Exception when trying to remove player. Message: " + e.Message));
             }
         }));
 
@@ -229,6 +260,7 @@ namespace RPSFight.ViewModels
                 tehGameBoard.Player = PlayerRoshambo;
                 tehGameBoard.Enemy = EnemyRoshambo;
                 Winner = tehGameBoard.GameStart();
+                DataStore.Add(new Log("User started the game with player: " + PlayerRoshambo.Name.Value + " and enemy: " + EnemyRoshambo.Name.Value + ". Winner: " + Winner.Name.Value));
                 var temp = tehGameBoard.WinLog.GetEnumerator();
                 WinLog.Clear();
                 while (temp.MoveNext())
