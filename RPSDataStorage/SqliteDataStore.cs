@@ -24,6 +24,17 @@ namespace RPSDataStorage
             context.SaveChangesAsync();
         }
 
+        public void Add(Log c)
+        {
+            context.Logs.Add(c);
+            context.SaveChangesAsync();
+        }
+
+        public IEnumerable<Log> GetAllLogEntries()
+        {
+            return context.Logs;
+        }
+
         public IEnumerable<Roshambo> GetAllRoshambo()
         {
             return context.Roshambos;
@@ -36,9 +47,22 @@ namespace RPSDataStorage
             context.SaveChangesAsync();
         }
 
+        public void Remove(Log c)
+        {
+            var value = context.Logs.Find(c.Id);
+            context.Logs.Remove(value);
+            context.SaveChangesAsync();
+        }
+
         public void Update(Roshambo c)
         {
             context.Roshambos.Update(c);
+            context.SaveChangesAsync();
+        }
+
+        public void Update(Log c)
+        {
+            context.Logs.Update(c);
             context.SaveChangesAsync();
         }
     }
@@ -51,7 +75,7 @@ namespace RPSDataStorage
         public DBContext(string dbPath)
         {
             this.dbPath = dbPath ?? throw new ArgumentNullException(nameof(dbPath));
-
+            //Database.EnsureDeleted();
             if (!_created)
             {
                 _created = true;
@@ -67,8 +91,11 @@ namespace RPSDataStorage
         {
             modelBuilder.Entity<Roshambo>()
                 .HasKey(c => c.Id);
+            modelBuilder.Entity<Log>()
+                .HasKey(c => c.Id);
         }
 
         public DbSet<Roshambo> Roshambos { get; set; }
+        public DbSet<Log> Logs { get; set; }
     }
 }
