@@ -104,21 +104,21 @@
             <Label Grid.Column="0" Grid.ColumnSpan="3" Text="Win Modifiers" HorizontalTextAlignment="Center" />
             <StackLayout Grid.Column="0" Grid.Row="1">
                 <Label Text="Rk vs. Ss"></Label>
-                <Entry Text="{Binding EnemyScissors}"></Entry>
+                <Entry Text="{Binding RkVsSs}"></Entry>
                 <Label Text="Rk vs. Pp"></Label>
-                <Entry Text="{Binding EnemyScissors}"></Entry>
+                <Entry Text="{Binding RkVsPp}"></Entry>
             </StackLayout>
             <StackLayout Grid.Column="1" Grid.Row="1">
                 <Label Text="Ss vs. Rk"></Label>
-                <Entry Text="{Binding EnemyScissors}"></Entry>
+                <Entry Text="{Binding SsVsRk}"></Entry>
                 <Label Text="Ss vs. Pp"></Label>
-                <Entry Text="{Binding EnemyScissors}"></Entry>
+                <Entry Text="{Binding SsVsPp}"></Entry>
             </StackLayout>
             <StackLayout Grid.Column="2" Grid.Row="1">
                 <Label Text="Pp vs. Rk"></Label>
-                <Entry Text="{Binding EnemyScissors}"></Entry>
+                <Entry Text="{Binding PpVsRk}"></Entry>
                 <Label Text="Pp vs. Ss"></Label>
-                <Entry Text="{Binding EnemyScissors}"></Entry>
+                <Entry Text="{Binding PpVsSs}"></Entry>
             </StackLayout>
         </Grid>
 

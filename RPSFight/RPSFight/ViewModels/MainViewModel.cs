@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using Xamarin.Forms;
@@ -80,6 +81,10 @@ namespace RPSFight.ViewModels
             return value;
         }
 
+        /******************************************************
+         *                   Roshambo Values                  *
+         *****************************************************/
+
         public Roshambo PlayerRoshambo { get; set; }
         public Roshambo EnemyRoshambo { get; set; }
 
@@ -140,18 +145,62 @@ namespace RPSFight.ViewModels
             set { SetField(ref enemyScissors,value); }
         }
 
-/******************************************************
- *                    Modifiers                       *
- *****************************************************/
-
-        
-
         private Roshambo winner;
         public Roshambo Winner
         {
             get { return winner; }
             set { SetField(ref winner, value); }
         }
+
+        /******************************************************
+         *                    Modifiers                       *
+         *****************************************************/
+
+        private int rkVsSs;
+        public int RkVsSs
+        {
+            get { return rkVsSs; }
+            set { SetField(ref rkVsSs, value); }
+        }
+
+        private int rkVsPp;
+        public int RkVsPp
+        {
+            get { return rkVsPp; }
+            set { SetField(ref rkVsPp, value); }
+        }
+
+        private int ssVsRk;
+        public int SsVsRk
+        {
+            get { return ssVsRk; }
+            set { SetField(ref ssVsRk, value); }
+        }
+
+        private int ssVsPp;
+        public int SsVsPp
+        {
+            get { return ssVsPp; }
+            set { SetField(ref ssVsPp, value); }
+        }
+
+        private int ppVsRk;
+        public int PpVsRk
+        {
+            get { return ppVsRk; }
+            set { SetField(ref ppVsRk, value); }
+        }
+
+        private int ppVsSs;
+        public int PpVsSs
+        {
+            get { return ppVsSs; }
+            set { SetField(ref ppVsSs, value); }
+        }
+
+        /******************************************************
+         *                     Commands                       *
+         *****************************************************/
 
         private Command showLog;
         public Command ShowLogCmd => showLog ?? (showLog = new Command(() =>
@@ -277,7 +326,9 @@ namespace RPSFight.ViewModels
 
                 if (playerQuantityTotal <= 0)
                     throw new InvalidOperationException("Please select a player with quantity that is more than 0.");
-                
+
+                ModifierSet tempVar = new ModifierSet(RkVsSs, RkVsPp, SsVsRk, SsVsPp, PpVsRk, PpVsSs);
+
 
                 if (PlayerRoshambo != null && EnemyRoshambo != null)
                 {
@@ -303,6 +354,11 @@ namespace RPSFight.ViewModels
             {
                 DataStore.Add(new Log("No player or-and enemy selected."));
                 ErrorMessager("Please select your combatants");
+            }
+            catch (Exception ex)
+            {
+                DataStore.Add(new Log("Cannot use user modifiers more than once per game."));
+                ErrorMessager(ex.Message);
             }
         }));
 
