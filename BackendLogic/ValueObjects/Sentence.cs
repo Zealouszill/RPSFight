@@ -19,12 +19,12 @@ namespace RPSBackendLogic.ValueObjects
                 string trimmed = v.Trim();
                 if (trimmed.Length < MINIMUM_LENGTH || trimmed.Length > MAXIMUM_LENGTH)
                 {
-                    throw new InvalidStringLengthException("Not valid length for a name.");
+                    throw new InvalidStringLengthException("Not valid length for a sentence.");
                 }
 
                 if (!System.Text.RegularExpressions.Regex.IsMatch(trimmed, VALID_CHARACTERS))
                 {
-                    throw new InvalidValueException("Not valid characters in the name.");
+                    throw new InvalidValueException("Not valid characters in the sentence.");
                 }
                 Value = trimmed;
             }
