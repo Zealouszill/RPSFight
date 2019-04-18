@@ -169,22 +169,24 @@
             <Button Grid.Row="2" Text="Remove Enemy" Command="{Binding RemoveEnemyCmd}" />
         </Grid>
 
-        <StackLayout Grid.Column="0" Grid.ColumnSpan="2" Grid.Row="2" Margin="5, 5, 5, 5">
-            <StackLayout Orientation="Horizontal">
+        <StackLayout Grid.Column="0" Grid.Row="2" Margin="5, 5, 5, 5">
+            <StackLayout>
                 <Label Text="Rounds: " />
                 <Entry Text="{Binding Rounds}" />
+                <StackLayout Orientation="Horizontal">
                 <Button Text="Battle!" WidthRequest="100" HorizontalOptions="Start"  IsEnabled="True" Command="{Binding StartGameCmd}"/>
                 <Button Text="Show Log" WidthRequest="100" HorizontalOptions="Start"  IsEnabled="True" Command="{Binding ShowLogCmd}"/>
+                </StackLayout>
             </StackLayout>
-            <StackLayout Orientation="Horizontal">
+            <StackLayout>
                 <Label Text="The winner is:"></Label>
                 <Label Text="{Binding Winner.Name}"></Label>
             </StackLayout>
         </StackLayout>
-        <!--<ListView ItemsSource="{Binding WinLog}"
+        <ListView ItemsSource="{Binding WinLog}"
                     HasUnevenRows="true"
-                    BackgroundColor="Crimson"
-                    Grid.Column="2" Grid.ColumnSpan="2" Grid.Row="2" Margin="5, 5, 5, 5">
+                    BackgroundColor="Gray"
+                    Grid.Column="1" Grid.Row="2" Margin="5, 5, 5, 5">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <ViewCell>
@@ -192,7 +194,7 @@
                     </ViewCell>
                 </DataTemplate>
             </ListView.ItemTemplate>
-        </ListView>-->
+        </ListView>
         <ListView ItemsSource="{Binding Log}"
                     HasUnevenRows="true"
                     BackgroundColor="LightGray"

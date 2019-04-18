@@ -45,7 +45,7 @@ namespace RPSDataStorage.Data
         {
             var list = new ObservableCollection<Log>();
             foreach (var cur in DataStore.GetAllLogEntries())
-                list.Add(new Log(cur.Id, cur.Entry));
+                list.Add(new Log(cur.Id, cur.Entry, cur.DateTime));
             return list;
         }
 

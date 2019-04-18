@@ -292,18 +292,17 @@ namespace RPSFight.ViewModels
                         WinLog.Add(temp.Current);
                     }
                 }
-
             }
             catch (InvalidOperationException e)
             {
+                DataStore.Add(new Log("Player or enemy have zero quanties for rock, scissor, and paper."));
                 ErrorMessager(e.Message);
             }
             catch (NullReferenceException)
             {
+                DataStore.Add(new Log("No player or-and enemy selected."));
                 ErrorMessager("Please select your combatants");
             }
-
-
         }));
 
         //public void testIfString<T>(ref T var)
