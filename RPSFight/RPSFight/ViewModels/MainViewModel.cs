@@ -156,6 +156,7 @@ namespace RPSFight.ViewModels
         private Command showLog;
         public Command ShowLogCmd => showLog ?? (showLog = new Command(() =>
         {
+            DataStore.Add(new Log("User requested to show log."));
             Log.Clear();
             foreach(var cur in DataStore.GetAllLogEntries())
                 Log.Add(cur);

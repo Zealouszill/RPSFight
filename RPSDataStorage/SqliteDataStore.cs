@@ -3,6 +3,7 @@ using RPSDataStorage.Data;
 using RPSDataStorage.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace RPSDataStorage
@@ -32,7 +33,7 @@ namespace RPSDataStorage
 
         public IEnumerable<Log> GetAllLogEntries()
         {
-            return context.Logs;
+            return context.Logs.OrderByDescending(x => x.Id);
         }
 
         public IEnumerable<Roshambo> GetAllRoshambo()
