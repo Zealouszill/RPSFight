@@ -335,14 +335,15 @@ namespace RPSFight.ViewModels
                 if (playerQuantityTotal <= 0)
                     throw new InvalidOperationException("Please select a player with quantity that is more than 0.");
 
-                ModifierSet tempVar = new ModifierSet(RkVsSs, RkVsPp, SsVsRk, SsVsPp, PpVsRk, PpVsSs);
+                ModifierSet mods = new ModifierSet(RkVsSs, RkVsPp, SsVsRk, SsVsPp, PpVsRk, PpVsSs);
+                //RkVsSs = RkVsPp = SsVsRk = SsVsPp = PpVsRk = PpVsSs = 0;
 
 
                 if (PlayerRoshambo != null && EnemyRoshambo != null)
                 {
                     tehGameBoard.Player = PlayerRoshambo;
                     tehGameBoard.Enemy = EnemyRoshambo;
-                    //tehGameBoard.UserModifiers.Add();
+                    tehGameBoard.Mods = mods;
                     Winner = tehGameBoard.GameStart();
                     DataStore.Add(new Log("User started the game with player: " + PlayerRoshambo.Name.Value + " and enemy: " + EnemyRoshambo.Name.Value + ". Winner: " + Winner.Name.Value));
                     var temp = tehGameBoard.WinLog.GetEnumerator();

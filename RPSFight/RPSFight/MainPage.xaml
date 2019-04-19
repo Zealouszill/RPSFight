@@ -169,8 +169,6 @@
 
         <StackLayout Grid.Column="0" Grid.Row="2" Margin="5, 5, 5, 5">
             <StackLayout>
-                <Label Text="Rounds: " />
-                <Entry Text="{Binding Rounds}" />
                 <StackLayout Orientation="Horizontal">
                 <Button Text="Battle!" WidthRequest="100" HorizontalOptions="Start"  IsEnabled="True" Command="{Binding StartGameCmd}"/>
                 <Button Text="Show Log" WidthRequest="100" HorizontalOptions="Start"  IsEnabled="True" Command="{Binding ShowLogCmd}"/>

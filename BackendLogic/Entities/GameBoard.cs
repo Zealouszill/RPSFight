@@ -18,6 +18,7 @@ namespace RPSBackendLogic.Entities
         public Quantity GameLength { get; set; }
         private Random rnd;
         public List<double> UserModifiers { get; set; }
+        public ModifierSet Mods { get; set; }
         private bool[] PlayerWins { get; set; }
         private int[] enemyQ;
         private int[] playerQ;
@@ -25,7 +26,7 @@ namespace RPSBackendLogic.Entities
 
         public GameBoard(Data.IDataStoreRepo ds)
         {
-            rnd= new Random();
+            rnd = new Random();
             GameLength = 20;
             dataStore = ds;
             WinLog = new ObservableCollection<Sentence>();
@@ -41,6 +42,7 @@ namespace RPSBackendLogic.Entities
                 PlayerWins = new bool[GameLength];
                 enemyQ = new int[3] { Enemy.Rock.Quantity, Enemy.Paper.Quantity, Enemy.Scissors.Quantity };
                 playerQ = new int[3] { Player.Rock.Quantity, Player.Paper.Quantity, Player.Scissors.Quantity };
+                int[] modifiers = new int[6] { Mods.RkVsPp, Mods.RkVsSs, Mods.PpVsRk, Mods.PpVsSs, Mods.SsVsRk, Mods.SsVsPp };
                 for (int i = 0; i < GameLength; i++)
                 {
                     int player = NewParticipant();
@@ -49,20 +51,24 @@ namespace RPSBackendLogic.Entities
                     if (player == 1)
                     {
                         if (enemy == 1)
-                            WinLog.Add("Player Rock vs Enemy Paper - " + Combat(Player.Rock.ModPaper, Enemy.Paper.ModRock).ToString());
+                            WinLog.Add("Player Rock vs Enemy Paper - "
+                                + Combat(Player.Rock.ModPaper + modifiers[0], Enemy.Paper.ModRock + modifiers[2]).ToString());
 
                         else if (enemy == 2)
-                            WinLog.Add("Player Rock vs Enemy Scissors - " + Combat(Player.Rock.ModScissor, Enemy.Scissors.ModRock).ToString());
+                            WinLog.Add("Player Rock vs Enemy Scissors - "
+                                + Combat(Player.Rock.ModScissor + modifiers[1], Enemy.Scissors.ModRock + modifiers[4]).ToString());
                         else
-                            WinLog.Add("Player Rock vs Enemy Paper - " + Combat(0, 0).ToString());
+                            WinLog.Add("Player Rock vs Enemy Rock - " + Combat(0, 0).ToString());
                         playerQ[0] -= 1;
                     }
                     else if (player == 2)
                     {
                         if (enemy == 0)
-                            WinLog.Add("Player Paper vs Enemy Rock - " + Combat(Player.Paper.ModRock, Enemy.Rock.ModPaper).ToString());
+                            WinLog.Add("Player Paper vs Enemy Rock - "
+                                + Combat(Player.Paper.ModRock + modifiers[2], Enemy.Rock.ModPaper + modifiers[0]).ToString());
                         else if (enemy == 2)
-                            WinLog.Add("Player Paper vs Enemy Scissor - " + Combat(Player.Paper.ModScissor, Enemy.Scissors.ModPaper).ToString());
+                            WinLog.Add("Player Paper vs Enemy Scissor - "
+                                + Combat(Player.Paper.ModScissor + modifiers[3], Enemy.Scissors.ModPaper + modifiers[5]).ToString());
                         else
                             WinLog.Add("Player Paper vs Enemy Paper - " + Combat(0, 0).ToString());
                         playerQ[1] -= 1;
@@ -70,11 +76,13 @@ namespace RPSBackendLogic.Entities
                     else
                     {
                         if (enemy == 0)
-                            WinLog.Add("Player Scissor vs Enemy Rock - " + Combat(Player.Scissors.ModRock, Enemy.Rock.ModScissor).ToString());
+                            WinLog.Add("Player Scissor vs Enemy Rock - "
+                                + Combat(Player.Scissors.ModRock + modifiers[4], Enemy.Rock.ModScissor + modifiers[1]).ToString());
                         else if (enemy == 1)
-                            WinLog.Add("Player Scissor vs Enemy Scissor - " + Combat(Player.Scissors.ModPaper, Enemy.Paper.ModScissor).ToString());
+                            WinLog.Add("Player Scissor vs Enemy Paper - "
+                                + Combat(Player.Scissors.ModPaper + modifiers[5], Enemy.Paper.ModScissor + modifiers[3]).ToString());
                         else
-                            WinLog.Add("Player Scissor vs Enemy Paper - " + Combat(0, 0).ToString());
+                            WinLog.Add("Player Scissor vs Enemy Scissor - " + Combat(0, 0).ToString());
                         playerQ[2] -= 1;
                     }
                 }
@@ -113,7 +121,8 @@ namespace RPSBackendLogic.Entities
                     enemyQ[2] -= 1;
                     return 3;
                 }
-            }else
+            }
+            else
             {
                 if (playerQ[0] != 0)
                 {
@@ -135,8 +144,9 @@ namespace RPSBackendLogic.Entities
         private bool Combat(double playerMod, double enemyMod)
         {
             var temp = false;
-            var playerVal = rnd.Next(1, GameLength+1) / (playerMod + .1);
-            var enemyVal = rnd.Next(1, GameLength+1) / (enemyMod + .1);
+
+            var playerVal = rnd.Next(1, GameLength + 1) / (playerMod + .1);
+            var enemyVal = rnd.Next(1, GameLength + 1) / (enemyMod + .1);
             if (playerVal > enemyVal)
                 temp = true;
 
