@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace RPSBackendLogic.Data
+﻿namespace RPSBackendLogic.Data
 {
     public interface IRepoService<T>
     {
