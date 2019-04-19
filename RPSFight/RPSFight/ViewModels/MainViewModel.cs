@@ -47,7 +47,7 @@ namespace RPSFight.ViewModels
         }
         private void GetPlayerRoshambos()
         {
-            foreach(var cur in DataStore.GetAllRoshambos())
+            foreach (var cur in DataStore.GetAllRoshambos())
             {
                 if (!cur.Enemy && !CheckId(cur.Id.Value, false))
                     PlayerRoshambos.Add(cur);
@@ -55,7 +55,7 @@ namespace RPSFight.ViewModels
         }
         private void GetEnemyRoshambos()
         {
-            foreach(var cur in DataStore.GetAllRoshambos())
+            foreach (var cur in DataStore.GetAllRoshambos())
             {
                 if (cur.Enemy && !CheckId(cur.Id.Value))
                     EnemyRoshambos.Add(cur);
@@ -69,7 +69,7 @@ namespace RPSFight.ViewModels
                 loop = EnemyRoshambos.GetEnumerator();
             else
                 loop = PlayerRoshambos.GetEnumerator();
-            while(loop.MoveNext())
+            while (loop.MoveNext())
             {
                 var cur = loop.Current;
                 if (cur.Id == id)
@@ -127,22 +127,24 @@ namespace RPSFight.ViewModels
         public int EnemyRocks
         {
             get { return enemyRocks; }
-            set {
-                SetField(ref enemyRocks, value); }
+            set
+            {
+                SetField(ref enemyRocks, value);
+            }
         }
 
         private int enemyPapers;
         public int EnemyPapers
         {
             get { return enemyPapers; }
-            set { SetField(ref enemyPapers,value); }
+            set { SetField(ref enemyPapers, value); }
         }
 
         private int enemyScissors;
         public int EnemyScissors
         {
             get { return enemyScissors; }
-            set { SetField(ref enemyScissors,value); }
+            set { SetField(ref enemyScissors, value); }
         }
 
         private Roshambo winner;
@@ -207,7 +209,7 @@ namespace RPSFight.ViewModels
         {
             DataStore.Add(new Log("User requested to show log."));
             Log.Clear();
-            foreach(var cur in DataStore.GetAllLogEntries())
+            foreach (var cur in DataStore.GetAllLogEntries())
                 Log.Add(cur);
         }));
 
@@ -253,7 +255,13 @@ namespace RPSFight.ViewModels
                     EnemyRoshambos.Remove(EnemyRoshambo);
                     EnemyRoshambo = null;
                 }
-            }catch(Exception e)
+                else
+                {
+                    DataStore.Add(new Log("User cannot remove default enemy."));
+                    ErrorMessager("Unable to remove default enemy player.");
+                }
+            }
+            catch (Exception e)
             {
                 DataStore.Add(new Log("System Exception when trying to remove enemy player. Message: " + e.Message));
                 ErrorMessager("Unable to remove enemy player.");
@@ -315,7 +323,7 @@ namespace RPSFight.ViewModels
         private Command startGame;
         public Command StartGameCmd => startGame ?? (startGame = new Command(() =>
         {
-            
+
             try
             {
                 int playerQuantityTotal = PlayerRoshambo.Rock.Quantity + PlayerRoshambo.Paper.Quantity + PlayerRoshambo.Scissors.Quantity;
@@ -365,7 +373,7 @@ namespace RPSFight.ViewModels
         //public void testIfString<T>(ref T var)
         //{
         //    string aString = "string";
-            
+
 
         //    if (var.GetType() == aString.GetType())
         //    {
@@ -375,13 +383,13 @@ namespace RPSFight.ViewModels
 
         public void ErrorMessager(string messageBox)
         {
-            
+
             Xamarin.Forms.Page ourPage = App.Current.MainPage.Navigation.NavigationStack.LastOrDefault();
             if (ourPage != null)
             {
                 ourPage.DisplayAlert("Error", messageBox, "Ok");
             }
-            
+
         }
 
         #region INotifyPropertyChanged Implementation
