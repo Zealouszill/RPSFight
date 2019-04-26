@@ -1,6 +1,7 @@
 ﻿using RPSBackendLogic.Data;
 using RPSBackendLogic.DomainPrimitives;
 using RPSBackendLogic.Entities;
+using System;
 using System.Collections.ObjectModel;
 
 namespace RPSDataStorage.Data
@@ -33,16 +34,27 @@ namespace RPSDataStorage.Data
         public ObservableCollection<Roshambo> GetAllRoshambos()
         {
             var list = new ObservableCollection<Roshambo>();
-            foreach(var cur in DataStore.GetAllRoshambo())
-                list.Add(new Roshambo(cur.Id, cur.Country, new Rock(cur.RockQuantity), new Paper(cur.PaperQuantity), new Scissors(cur.ScissorQuantity), cur.Enemy));
+            try
+            {
+                foreach (var cur in DataStore.GetAllRoshambo())
+                    list.Add(new Roshambo(cur.Id, cur.Country, new Rock(cur.RockQuantity), new Paper(cur.PaperQuantity), new Scissors(cur.ScissorQuantity), cur.Enemy));
+            } catch(Exception e)
+            {
+
+            }
             return list;
+
         }
 
         public ObservableCollection<Log> GetAllLogEntries()
         {
             var list = new ObservableCollection<Log>();
-            foreach (var cur in DataStore.GetAllLogEntries())
-                list.Add(new Log(cur.Id, cur.Entry, cur.DateTime));
+            try
+            {
+                foreach (var cur in DataStore.GetAllLogEntries())
+                    list.Add(new Log(cur.Id, cur.Entry, cur.DateTime));
+            }catch(Exception e)
+            { }
             return list;
         }
 
