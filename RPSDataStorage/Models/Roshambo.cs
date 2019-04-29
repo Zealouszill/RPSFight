@@ -1,9 +1,11 @@
-﻿namespace RPSDataStorage.Models
+﻿using Newtonsoft.Json;
+
+namespace RPSDataStorage.Models
 {
     public class Roshambo
     {
         public Roshambo() { }
-        public int Id { get; set; }
+        public string Id { get; set; }
         public string Country { get; set; }
         public int RockQuantity { get; set; }
         public int PaperQuantity { get; set; }

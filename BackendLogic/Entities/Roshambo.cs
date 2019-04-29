@@ -12,8 +12,8 @@ namespace RPSBackendLogic.Entities
         public Scissors Scissors { get; private set; }
         public bool Enemy { get; private set; }
 
-        public Roshambo(Name nm, Rock rk, Paper pr, Scissors sc) : this(new Id(0), nm, rk, pr, sc, true) { }
-        public Roshambo(Name nm, Rock rk, Paper pr, Scissors sc, bool en) : this(new Id(0), nm, rk, pr, sc, en) { }
+        public Roshambo(Name nm, Rock rk, Paper pr, Scissors sc) : this(new Id("0"), nm, rk, pr, sc, true) { }
+        public Roshambo(Name nm, Rock rk, Paper pr, Scissors sc, bool en) : this(new Id("0"), nm, rk, pr, sc, en) { }
         public Roshambo(Id id, Name name, Rock rock, Paper paper, Scissors scissors, bool enemy)
         {
             Id = id;

@@ -3,22 +3,23 @@ using RPSBackendLogic.DomainPrimitives;
 using RPSBackendLogic.Entities;
 using System;
 using System.Collections.ObjectModel;
+using System.Threading.Tasks;
 
 namespace RPSDataStorage.Data
 {
-    public class DataStoreRepo : IDataStoreRepo
+    public class DataStoreAsyncRepo : IDataStoreAsyncRepo
     {
-        private readonly IDbRepo dataStore;
-        public IDbRepo DataStore => dataStore;
+        private readonly IDbAsyncRepo dataStore;
+        public IDbAsyncRepo DataStore => dataStore;
 
-        public DataStoreRepo(string dbPath)
+        public DataStoreAsyncRepo()
         {
-            dataStore = new SqliteDataStore(dbPath);
+            dataStore = new CosmosDataStore();
         }
 
         public void Add(Roshambo c)
         {
-            DataStore.Add(Convert(c));
+            DataStore.AddAsync(Convert(c));
         }
 
         public void Update(Roshambo c)
@@ -28,15 +29,15 @@ namespace RPSDataStorage.Data
 
         public void Remove(Roshambo c)
         {
-            DataStore.Remove(Convert(c));
+            DataStore.RemoveAsync(Convert(c));
         }
 
-        public ObservableCollection<Roshambo> GetAllRoshambos()
+        public async Task<ObservableCollection<Roshambo>> GetAllRoshambosAsync()
         {
             var list = new ObservableCollection<Roshambo>();
             try
             {
-                foreach (var cur in DataStore.GetAllRoshamboAsync())
+                foreach (var cur in await DataStore.GetAllRoshamboAsync())
                     list.Add(new Roshambo(cur.Id, cur.Country, new Rock(cur.RockQuantity), new Paper(cur.PaperQuantity), new Scissors(cur.ScissorQuantity), cur.Enemy));
             } catch(Exception e)
             {
@@ -46,21 +47,23 @@ namespace RPSDataStorage.Data
 
         }
 
-        public ObservableCollection<Log> GetAllLogEntries()
+        public async Task<ObservableCollection<Log>> GetAllLogEntriesAsync()
         {
             var list = new ObservableCollection<Log>();
             try
             {
-                foreach (var cur in DataStore.GetAllLogEntriesAsync())
+                foreach (var cur in await DataStore.GetAllLogEntriesAsync())
                     list.Add(new Log(cur.Id, cur.Entry, cur.DateTime));
             }catch(Exception e)
-            { Console.WriteLine(e); }
+            {
+                Console.WriteLine(e);
+            }
             return list;
         }
 
         public void Add(Log c)
         {
-            DataStore.Add(Convert(c));
+            DataStore.AddAsync(Convert(c));
         }
 
         public void Update(Log c)
@@ -70,14 +73,14 @@ namespace RPSDataStorage.Data
 
         public void Remove(Log c)
         {
-            DataStore.Remove(Convert(c));
+            DataStore.RemoveAsync(Convert(c));
         }
 
         private RPSDataStorage.Models.Roshambo Convert(Roshambo c)
         {
             var rosh = new RPSDataStorage.Models.Roshambo();
-            //if (c.Id != 0)
-            //    rosh.Id = c.Id;
+            if (c.Id != "0")
+                rosh.Id = c.Id.Value;
             rosh.Country = c.Name.Value;
             rosh.RockQuantity = c.Rock.Quantity.Value;
             rosh.PaperQuantity = c.Paper.Quantity.Value;
@@ -89,8 +92,8 @@ namespace RPSDataStorage.Data
         private RPSDataStorage.Models.Log Convert(Log c)
         {
             var rosh = new RPSDataStorage.Models.Log();
-            //if (c.Id != 0)
-            //    rosh.Id = c.Id;
+            if (c.Id != "0")
+                rosh.Id = c.Id.Value;
             rosh.Entry = c.Entry.Value;
             rosh.DateTime = c.DateTime;
             return rosh;

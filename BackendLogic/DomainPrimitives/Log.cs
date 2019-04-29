@@ -9,7 +9,7 @@ namespace RPSBackendLogic.DomainPrimitives
         public Sentence Entry { get; private set; }
         public DateTime DateTime { get; private set; }
 
-        public Log(Sentence nm) : this(new Id(0), nm, DateTime.Now){}
+        public Log(Sentence nm) : this(new Id("0"), nm, DateTime.Now){}
         public Log(Id id, Sentence log, DateTime tm)
         {
             Id = id;

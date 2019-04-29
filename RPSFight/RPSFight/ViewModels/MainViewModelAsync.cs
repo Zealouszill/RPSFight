@@ -9,59 +9,64 @@ using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Threading.Tasks;
 using Xamarin.Forms;
 
 namespace RPSFight.ViewModels
 {
-    public class MainViewModel : INotifyPropertyChanged
+    public class MainViewModelAsync : INotifyPropertyChanged
     {
         //public ICommand AddRoshambo;
         //public ICommand startBattle;
         //public ICommand resultsCommand;
 
-        private readonly IDataStoreRepo dataStore;
-        IDataStoreRepo DataStore => dataStore;
+        private readonly IDataStoreAsyncRepo dataStore;
+        IDataStoreAsyncRepo DataStore => dataStore;
 
-        GameBoard tehGameBoard;
+        GameBoardAsync tehGameBoard;
 
         public ObservableCollection<Roshambo> PlayerRoshambos { get; set; }
         public ObservableCollection<Roshambo> EnemyRoshambos { get; set; }
         public ObservableCollection<Log> Log { get; set; }
         public ObservableCollection<Sentence> WinLog { get; private set; }
 
-        public MainViewModel(RPSDataStorage.Data.DataStoreRepo context)
+        public MainViewModelAsync(RPSDataStorage.Data.DataStoreAsyncRepo context)
         {
             dataStore = context;
             PlayerRoshambos = new ObservableCollection<Roshambo>();
             EnemyRoshambos = new ObservableCollection<Roshambo>();
             WinLog = new ObservableCollection<Sentence>();
             Log = new ObservableCollection<Log>();
-            tehGameBoard = new GameBoard(dataStore);
+            tehGameBoard = new GameBoardAsync(dataStore);
 
             EnemyRoshambos.Add(new Roshambo("Baracuda", new Rock(5), new Paper(4), new Scissors(1)));
             EnemyRoshambos.Add(new Roshambo("Carmichael", new Rock(2), new Paper(7), new Scissors(3)));
             EnemyRoshambos.Add(new Roshambo("Shcali", new Rock(20), new Paper(13), new Scissors(17)));
-            GetPlayerRoshambos();
-            GetEnemyRoshambos();
+            InitializeAsync();
             //Encryptor en = new Encryptor();
             //var strbin = en.StringToBin("This is a string value");
             //var encrypt = en.Encrypt("This is a string value");
             //var decrypt = en.Decrypt(encrypt);
             //Console.WriteLine("Encrypt: " + encrypt + " Decrypt: " + decrypt);
         }
-        private void GetPlayerRoshambos()
+        private async Task InitializeAsync()
         {
-            foreach (var cur in DataStore.GetAllRoshambos())
+            await GetPlayerRoshambosAsync();
+            await GetEnemyRoshambosAsync();
+        }
+        private async Task GetPlayerRoshambosAsync()
+        {
+            foreach (var cur in await DataStore.GetAllRoshambosAsync())
             {
                 if (!cur.Enemy && !CheckId(cur.Id, false))
                     PlayerRoshambos.Add(cur);
             }
         }
-        private void GetEnemyRoshambos()
+        private async Task GetEnemyRoshambosAsync()
         {
-            foreach (var cur in DataStore.GetAllRoshambos())
+            foreach (var cur in await DataStore.GetAllRoshambosAsync())
             {
-                if (cur.Enemy && !CheckId(cur.Id.Value))
+                if (cur.Enemy && !CheckId(cur.Id))
                     EnemyRoshambos.Add(cur);
             }
         }
@@ -76,7 +81,7 @@ namespace RPSFight.ViewModels
             while (loop.MoveNext())
             {
                 var cur = loop.Current;
-                if (cur.Id == id)
+                if (cur.Id.Value == id.Value)
                 {
                     value = true;
                     break;
@@ -209,22 +214,22 @@ namespace RPSFight.ViewModels
          *****************************************************/
 
         private Command showLog;
-        public Command ShowLogCmd => showLog ?? (showLog = new Command(() =>
+        public Command ShowLogCmd => showLog ?? (showLog = new Command(async () =>
         {
             DataStore.Add(new Log("User requested to show log."));
             Log.Clear();
-            foreach (var cur in DataStore.GetAllLogEntries())
+            foreach (var cur in await DataStore.GetAllLogEntriesAsync())
                 Log.Add(cur);
         }));
 
         private Command saveEnemy;
-        public Command SaveEnemyCmd => saveEnemy ?? (saveEnemy = new Command(() =>
+        public Command SaveEnemyCmd => saveEnemy ?? (saveEnemy = new Command(async () =>
         {
             try
             {
                 var newRo = new Roshambo(new Name(EnemyName), new Rock(EnemyRocks), new Paper(EnemyPapers), new Scissors(EnemyScissors));
                 DataStore.Add(newRo);
-                GetEnemyRoshambos();
+                await GetEnemyRoshambosAsync();
                 //EnemyRoshambos.Add(newRo);
                 DataStore.Add(new Log("User saved an enemy named: " + EnemyName));
                 EnemyName = "";
@@ -273,13 +278,13 @@ namespace RPSFight.ViewModels
         }));
 
         private Command savePlayer;
-        public Command SavePlayerCmd => savePlayer ?? (savePlayer = new Command(() =>
+        public Command SavePlayerCmd => savePlayer ?? (savePlayer = new Command(async () =>
         {
             try
             {
                 var newRo = new Roshambo(new Name(PlayerName), new Rock(PlayerRocks), new Paper(PlayerPapers), new Scissors(PlayerScissors), false);
                 DataStore.Add(newRo);
-                GetPlayerRoshambos();
+                await GetPlayerRoshambosAsync();
                 //PlayerRoshambos.Add(newRo);
                 DataStore.Add(new Log("User saved a player named: " + PlayerName));
                 PlayerName = "";

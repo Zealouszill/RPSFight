@@ -6,7 +6,7 @@ namespace RPSDataStorage.Data
 {
     public interface IDbRepo : IRepoService<Roshambo>, IRepoService<Log>
     {
-        IEnumerable<Roshambo> GetAllRoshambo();
-        IEnumerable<Log> GetAllLogEntries();
+        IEnumerable<Roshambo> GetAllRoshamboAsync();
+        IEnumerable<Log> GetAllLogEntriesAsync();
     }
 }

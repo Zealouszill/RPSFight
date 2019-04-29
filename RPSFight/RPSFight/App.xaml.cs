@@ -10,7 +10,7 @@ namespace RPSFight
 {
     public partial class App : Application
     {
-        public static MainViewModel RoshamboVM { get; private set; }
+        public static MainViewModelAsync RoshamboVM { get; private set; }
         public App()
         {
             InitializeComponent();
@@ -33,10 +33,12 @@ namespace RPSFight
                     break;
             }
             //optionbuilder.UseSqlite($@"Data Source={dbPath}");
-            var dataStore = new DataStoreRepo(dbPath);
+            //var dataStore = new DataStoreRepo(dbPath);
+            var dataStore = new DataStoreAsyncRepo();
 
             //// Instantiate the view model
-            RoshamboVM = new MainViewModel(dataStore);
+            //RoshamboVM = new MainViewModel(dataStore);
+            RoshamboVM = new MainViewModelAsync(dataStore);
 
             MainPage = new MainPage();
         }

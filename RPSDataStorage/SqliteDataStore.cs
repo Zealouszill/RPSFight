@@ -30,13 +30,14 @@ namespace RPSDataStorage
             context.SaveChangesAsync();
         }
 
-        public IEnumerable<Log> GetAllLogEntries()
+        public IEnumerable<Log> GetAllLogEntriesAsync()
         {
             return context.Logs.OrderByDescending(x => x.Id);
         }
 
-        public IEnumerable<Roshambo> GetAllRoshambo()
+        public IEnumerable<Roshambo> GetAllRoshamboAsync()
         {
+            //context.Roshambos.AnyAsync<Roshambo>();
             return context.Roshambos;
         }
 
