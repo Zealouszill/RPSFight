@@ -43,6 +43,11 @@ namespace RPSFight.ViewModels
             EnemyRoshambos.Add(new Roshambo("Shcali", new Rock(20), new Paper(13), new Scissors(17)));
             GetPlayerRoshambos();
             GetEnemyRoshambos();
+            //Encryptor en = new Encryptor();
+            //var strbin = en.StringToBin("This is a string value");
+            //var encrypt = en.Encrypt("This is a string value");
+            //var decrypt = en.Decrypt(encrypt);
+            //Console.WriteLine("Encrypt: " + encrypt + " Decrypt: " + decrypt);
         }
         private void GetPlayerRoshambos()
         {

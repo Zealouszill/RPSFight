@@ -6,21 +6,31 @@ namespace RPSBackendLogic.Entities
 {
     public class Encryptor
     {
-        public static string Encrypt(string val)
+        private static string Key = "";
+        public string Encrypt(string val)
         {
-
-            Random rand = new Random();
             var bin = StringToBinary(val);
-            var binLength = bin.Length;
-
-
-            return null;
+            var temp = "";
+            for(int i = 0; i < bin.Length; i++)
+            {
+                temp += Xor(bin[i], Key[i]);
+            }
+            return temp;
         }
-        public static string Decrypt(string val)
+        public string Decrypt(string val)
         {
-            return null;
+            var temp = "";
+            for (int i = 0; i < val.Length; i++)
+            {
+                temp += Xor(val[i], Key[i]);
+            }
+            var bin = BinaryToString(temp);
+            return bin;
         }
-
+        public string StringToBin(string data)
+        {
+            return StringToBinary(data);
+        }
         private static string StringToBinary(string data)
         {
             StringBuilder sb = new StringBuilder();
@@ -41,6 +51,14 @@ namespace RPSBackendLogic.Entities
                 byteList.Add(Convert.ToByte(data.Substring(i, 8), 2));
             }
             return Encoding.ASCII.GetString(byteList.ToArray());
+        }
+
+        private static string Xor(char one, char two)
+        {
+            if (one == two)
+                return "0";
+            else
+                return "1";
         }
     }
 }
